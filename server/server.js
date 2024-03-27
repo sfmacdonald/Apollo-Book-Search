@@ -12,9 +12,11 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Set MIME type for JavaScript files
-app.get('*.js', (req, res, next) => {
-  res.set('Content-Type', 'application/javascript');
+// Add middleware to handle .jsx files and set their MIME type
+app.use((req, res, next) => {
+  if (req.url.endsWith('.jsx')) {
+    res.setHeader('Content-Type', 'text/jsx');
+  }
   next();
 });
 
