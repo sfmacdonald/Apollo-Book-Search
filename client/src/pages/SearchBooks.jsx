@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
-import { SAVE_BOOK } from '../utils/mutations';
+import { SAVE_BOOK } from '../models/mutations';
 import { saveBookIds } from '../utils/localStorage';
 import Auth from '../utils/auth';
 

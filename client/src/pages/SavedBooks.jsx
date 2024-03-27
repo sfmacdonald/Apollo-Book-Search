@@ -1,7 +1,7 @@
 // SavedBooks.jsx
 
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, REMOVE_BOOK } from '../utils/queries';
+import { GET_ME, REMOVE_BOOK } from '../models/queries';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
