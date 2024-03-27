@@ -48,3 +48,5 @@ startApolloServer().then(() => {
     app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
   });
 });
+
+module.exports = app;
