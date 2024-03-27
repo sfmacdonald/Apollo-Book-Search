@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// Create an instance of ApolloServer
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -32,10 +33,18 @@ const server = new ApolloServer({
   },
 });
 
-server.applyMiddleware({ app });
+// Start the ApolloServer and apply middleware to the Express app
+async function startApolloServer() {
+  await server.start();
+  server.applyMiddleware({ app });
+}
 
-app.use(routes);
+startApolloServer().then(() => {
+  // Use routes after applying Apollo middleware
+  app.use(routes);
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  // Start the Express server
+  db.once('open', () => {
+    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  });
 });
