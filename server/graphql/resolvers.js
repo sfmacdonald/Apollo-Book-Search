@@ -1,5 +1,5 @@
-const { User } = require('./models');
-const { signToken } = require('./utils/auth');
+const { User } = require('../models');
+const { signToken } = require('../utils/auth');
 const axios = require('axios');
 
 const resolvers = {
