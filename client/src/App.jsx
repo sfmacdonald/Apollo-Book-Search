@@ -5,7 +5,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 
 const client = new ApolloClient({
   uri: '/graphql',
