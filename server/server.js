@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Middleware to handle .jsx files and set their MIME type (optional)
+// Middleware to handle .jsx files and set their MIME type
 app.use((req, res, next) => {
   if (req.url.endsWith('.jsx')) {
     res.setHeader('Content-Type', 'text/jsx');
@@ -42,17 +42,20 @@ const server = new ApolloServer({
   },
 });
 
-// Apply middleware to Express app
-server.applyMiddleware({ app });
+// Initialize ApolloServer and start Express server
+async function startApolloServer() {
+  await server.start();
+  server.applyMiddleware({ app }); // Apply middleware after server has started
+}
 
-// Use routes
-app.use(routes);
+// Start ApolloServer and Express server
+startApolloServer().then(() => {
+  // Use routes after applying Apollo middleware
+  app.use(routes);
 
-// Start the Express server
-db.once('open', () => {
-  app.listen(PORT, () => {
-    console.log(`🌍 Now listening on localhost:${PORT}`);
-    console.log(`🚀 GraphQL server at http://localhost:${PORT}${server.graphqlPath}`);
+  // Start the Express server
+  db.once('open', () => {
+    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
   });
 });
 
