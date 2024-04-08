@@ -7,7 +7,7 @@ import Auth from '../utils/Auth';
 
 const SignupForm = () => {
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-  const [validated] = useState(false);
+  const [validated, setValidated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const [addUser] = useMutation(ADD_USER);
@@ -24,14 +24,15 @@ const SignupForm = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidated(true);
+      return;
     }
 
     try {
-      const { data } = await addUser({
-        variables: { ...userFormData }
-      });
+      const { data } = await addUser({ variables: { ...userFormData } });
 
-      console.log(data);
+      Auth.login(data.addUser.token);
+
     } catch (err) {
       console.error(err);
       setShowAlert(true);
@@ -46,7 +47,9 @@ const SignupForm = () => {
 
   return (
     <>
+      {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        {/* show alert if server response is bad */}
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
         </Alert>
