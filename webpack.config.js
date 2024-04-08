@@ -18,6 +18,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'], // Add CSS loader support
+      },
     ],
   },
   resolve: {
