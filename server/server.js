@@ -7,13 +7,13 @@ const { typeDefs, resolvers } = require('./graphql');
 const { authMiddleware } = require('./utils/auth');
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 // Middleware to parse JSON and URL-encoded request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Middleware to handle .jsx files and set their MIME type
+// Middleware to handle .jsx files and set their MIME type (optional)
 app.use((req, res, next) => {
   if (req.url.endsWith('.jsx')) {
     res.setHeader('Content-Type', 'text/jsx');
@@ -42,20 +42,17 @@ const server = new ApolloServer({
   },
 });
 
-// Start ApolloServer and apply middleware to Express app
-async function startApolloServer() {
-  await server.start();
-  server.applyMiddleware({ app });
-}
+// Apply middleware to Express app
+server.applyMiddleware({ app });
 
-// Initialize ApolloServer and start Express server
-startApolloServer().then(() => {
-  // Use routes after applying Apollo middleware
-  app.use(routes);
+// Use routes
+app.use(routes);
 
-  // Start the Express server
-  db.once('open', () => {
-    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+// Start the Express server
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`🌍 Now listening on localhost:${PORT}`);
+    console.log(`🚀 GraphQL server at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
 
