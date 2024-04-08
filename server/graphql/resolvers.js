@@ -80,6 +80,14 @@ const resolvers = {
       }
       throw new Error('You are not authenticated!');
     },
+    addUser: async (_, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      if (!user) {
+        throw new Error('Could not create user!');
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
   },
 };
 

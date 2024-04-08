@@ -7,12 +7,13 @@ const { typeDefs, resolvers } = require('./graphql');
 const { authMiddleware } = require('./utils/auth');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
+// Middleware to parse JSON and URL-encoded request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Add middleware to handle .jsx files and set their MIME type
+// Middleware to handle .jsx files and set their MIME type
 app.use((req, res, next) => {
   if (req.url.endsWith('.jsx')) {
     res.setHeader('Content-Type', 'text/jsx');
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// if we're in production, serve client/build as static assets
+// Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
@@ -41,12 +42,13 @@ const server = new ApolloServer({
   },
 });
 
-// Start the ApolloServer and apply middleware to the Express app
+// Start ApolloServer and apply middleware to Express app
 async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app });
 }
 
+// Initialize ApolloServer and start Express server
 startApolloServer().then(() => {
   // Use routes after applying Apollo middleware
   app.use(routes);
