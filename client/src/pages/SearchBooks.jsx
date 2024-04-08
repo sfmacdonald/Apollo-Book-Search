@@ -1,11 +1,26 @@
-// SearchBooks.jsx
-
 import { useState } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../models/mutations';
 import { saveBookIds } from '../utils/localStorage';
 import Auth from '../utils/Auth';
+
+const searchBooks = async (searchQuery) => {
+  // Simulate a delay of 1 second using setTimeout
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulated search results (replace with actual search logic)
+      const searchResults = [
+        { title: 'Book 1', authors: ['Author 1'], description: 'Description 1', bookId: 1, image: 'image1.jpg' },
+        { title: 'Book 2', authors: ['Author 2'], description: 'Description 2', bookId: 2, image: 'image2.jpg' },
+        // Add more books as needed
+      ];
+      // Resolve the Promise with the search results
+      resolve(searchResults);
+    }, 1000); // Simulate a delay of 1 second
+  });
+};
+
 
 const SearchBooks = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -17,7 +32,8 @@ const SearchBooks = () => {
     if (!searchInput) return;
 
     try {
-      // Your search logic here...
+      const searchResults = await searchBooks(searchInput);
+      setSearchedBooks(searchResults);
     } catch (err) {
       console.error(err);
     }

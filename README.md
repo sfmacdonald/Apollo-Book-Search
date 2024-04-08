@@ -58,7 +58,22 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 
 This application has the following features and functions:
 
-1. 
+
+Features
+This application has the following features and functions:
+
+1. User Authentication: Users can sign up or log in to their accounts, allowing them to save books and access their saved book list.
+
+2. Search for Books: Users can search for books using keywords. The search results display book titles, authors, descriptions, images, and links to the Google Books site.
+
+3. Save Books: Logged-in users can save books to their account. Saved books are stored in the backend and can be accessed later.
+
+4. View Saved Books: Users can view their saved books, including titles, authors, descriptions, images, and links to the Google Books site.
+
+5. Remove Saved Books: Users can remove books from their saved list.
+
+6. Responsive Design: The application is designed to work seamlessly across various devices and screen sizes.
+
 
 ## Usage
 
