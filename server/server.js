@@ -42,13 +42,13 @@ const server = new ApolloServer({
   },
 });
 
-// Initialize ApolloServer and start Express server
+// Start ApolloServer and apply middleware to Express app
 async function startApolloServer() {
   await server.start();
   server.applyMiddleware({ app }); // Apply middleware after server has started
 }
 
-// Start ApolloServer and Express server
+// Initialize ApolloServer and start Express server
 startApolloServer().then(() => {
   // Use routes after applying Apollo middleware
   app.use(routes);

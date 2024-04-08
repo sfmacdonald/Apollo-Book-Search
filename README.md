@@ -80,7 +80,3 @@ This application has the following features and functions:
 The github repository may be found at https://github.com/sfmacdonald/Apollo-Book-Search
 
 See attached screenrecording for demonstration: 
-
-## Testing
-
-Testing may be accomplished manually by:
