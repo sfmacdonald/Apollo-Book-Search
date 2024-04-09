@@ -35,7 +35,7 @@ const server = new ApolloServer({
     const token = req.headers.authorization || '';
 
     // Try to retrieve a user with the token
-    const user = authMiddleware(token);
+    const user = authMiddleware(req); // Pass the request object to authMiddleware
 
     // Add the user to the context
     return { user };
