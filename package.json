@@ -5,6 +5,7 @@
     "main": "server/server.js",
     "scripts": {
         "start": "node server/server.js",
+        "postinstall": "npm rebuild bcrypt --build-from-source",
         "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
         "install": "cd server && npm i && cd ../client && npm i",
         "build": "webpack --config webpack.config.js",
