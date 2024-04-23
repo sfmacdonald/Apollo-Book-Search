@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
@@ -5,6 +6,7 @@ const routes = require('./routes');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./graphql');
 const { authMiddleware } = require('./utils/auth');
+const { InMemoryLRUCache } = require('apollo-server-caching'); // Import InMemoryLRUCache
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -26,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// Create an instance of ApolloServer
+// Create an instance of ApolloServer with bounded cache settings
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -40,6 +42,10 @@ const server = new ApolloServer({
     // Add the user to the context
     return { user };
   },
+  cache: new InMemoryLRUCache({
+    maxSize: 1000000, // Adjust the maximum size of the cache in bytes
+    ttl: 60000 // Time to live in milliseconds
+  }),
 });
 
 // Start ApolloServer and apply middleware to Express app
