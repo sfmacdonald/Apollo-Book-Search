@@ -1,10 +1,11 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development', // Or 'production' when deploying your application
   entry: './client/src/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'dist'), // Output directory for bundled files
-    filename: 'bundle.js', // Output filename
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -20,18 +21,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'], // Add CSS loader support
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'], // Add support for resolving .jsx file extensions
+    extensions: ['.js', '.jsx'],
     alias: {
-      // Define aliases for commonly used paths in your project
       '@components': path.resolve(__dirname, 'client/src/components'),
       '@pages': path.resolve(__dirname, 'client/src/pages'),
       '@utils': path.resolve(__dirname, 'client/src/utils'),
-      // Add more aliases as needed for other directories
     },
   },
 };

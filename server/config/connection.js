@@ -10,4 +10,3 @@ mongoose.connect(mongoURI, {
 });
 
 module.exports = mongoose.connection;
-
