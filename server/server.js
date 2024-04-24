@@ -16,12 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Middleware to handle .jsx files and set their MIME type
-app.use((req, res, next) => {
-  if (req.url.endsWith('.jsx')) {
-    res.setHeader('Content-Type', 'text/jsx');
-  }
-  next();
-});
+// app.use((req, res, next) => {
+  // if (req.url.endsWith('.jsx')) {
+    // res.setHeader('Content-Type', 'text/jsx');
+  // }
+  // next();
+// });
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
